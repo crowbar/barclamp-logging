@@ -32,3 +32,11 @@ locale_additions:
           attributes: Attributes
         edit_deployment: 
           deployment: Deployment
+
+rpms:
+  pkgs:
+    - rsyslog
+
+debs:
+  pkgs:
+    - rsyslog
