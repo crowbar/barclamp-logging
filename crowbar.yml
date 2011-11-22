@@ -24,7 +24,9 @@ barclamp:
 
 crowbar:
   layout: 1
-  order: 99
+  order: 40
+  run_order: 40
+  chef_order: 40
 
 locale_additions:
   en:
