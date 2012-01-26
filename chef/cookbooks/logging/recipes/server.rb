@@ -16,6 +16,9 @@
 
 package "rsyslog"
 
+
+external_servers = node[:logging][:external_servers]
+
 service "rsyslog" do
   provider Chef::Provider::Service::Upstart if node[:platform] == "ubuntu"
   supports :restart => true, :status => true, :reload => true
@@ -29,6 +32,7 @@ template "/etc/rsyslog.d/10-crowbar-server.conf" do
   group "root"
   mode 0644
   source "rsyslog.server.erb"
+  variables(:external_servers => external_servers)
   notifies :restart, "service[rsyslog]"
 end
 
