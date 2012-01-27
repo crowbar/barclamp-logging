@@ -1,4 +1,4 @@
-# Copyright 2011, Dell 
+# Copyright 2012, Dell 
 # 
 # Licensed under the Apache License, Version 2.0 (the "License"); 
 # you may not use this file except in compliance with the License. 
@@ -17,5 +17,17 @@ class LoggingController < BarclampController
   def initialize
     @service_object = LoggingService.new logger
   end
+  
+  def utils
+    ctime=Time.now.strftime("%Y%m%d-%H%M%S")
+    @file = "crowbar-logs-#{ctime}.tar.bz2"
+    pid = fork do
+      system("sudo -i /opt/dell/bin/gather_logs.sh #{@file}")
+    end
+    Process.detach(pid) # reap child process automatically; don't leave running    
+    redirect_to "/utils?waiting=true&file=#{@file.gsub(/\./,'-DOT-')}"
+  end
+  
+
 end
 
