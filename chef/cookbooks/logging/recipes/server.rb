@@ -27,6 +27,13 @@ service "rsyslog" do
   action [ :enable, :start ]
 end
 
+directory "/var/log/nodes" do
+  owner "root"
+  group "root"
+  mode "0644"
+  action :create
+end
+
 template "/etc/rsyslog.d/10-crowbar-server.conf" do
   owner "root"
   group "root"
