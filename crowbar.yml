@@ -47,6 +47,6 @@ rpms:
   pkgs:
     - rsyslog
 
-debs:
-  pkgs:
-    - rsyslog
+#debs:
+#  pkgs:
+#    - rsyslog
