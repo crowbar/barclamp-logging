@@ -18,7 +18,7 @@ class LoggingController < BarclampController
     @service_object = LoggingService.new logger
   end
   
-  def utils
+  def export
     ctime=Time.now.strftime("%Y%m%d-%H%M%S")
     @file = "crowbar-logs-#{ctime}.tar.bz2"
     pid = fork do
