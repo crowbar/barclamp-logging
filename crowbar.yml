@@ -30,12 +30,12 @@ crowbar:
 
 nav:
   utils:
-    log_export: utils_barclamp_path(:controller=>'logging')
+    logging_export: utils_export_path(:controller=>'logging')
 
 locale_additions:
   en:
     nav:
-      log_export: Log Export
+      logging_export: Log Export
     barclamp:
       logging: 
         edit_attributes: 
