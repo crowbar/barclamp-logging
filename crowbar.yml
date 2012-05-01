@@ -28,10 +28,6 @@ crowbar:
   run_order: 40
   chef_order: 40
 
-nav:
-  utils:
-    logging_export: utils_export_path(:controller=>'logging')
-
 locale_additions:
   en:
     nav:
