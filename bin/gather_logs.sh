@@ -51,12 +51,9 @@ sort_by_last() {
 	curl "${curlargs[@]}" "http://localhost:3000/$to_get" || :
     done
     for node in $(sudo -H knife node list); do
-	mkdir -p "${node%%.*}"
 	tarfile="${node%%.*}-${tarname}.tar.gz"
-	(   cd "${node%%.*}"
-	    sudo ssh "${sshopts[@]}" "${node}" \
-		tar czf - "${logs[@]}" |
-	    tar xzf -
+	(   sudo ssh "${sshopts[@]}" "${node}" \
+		tar czf - "${logs[@]}" > "${tarfile}"
 	)&
     done &>/dev/null
     wait
