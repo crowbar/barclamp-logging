@@ -21,7 +21,7 @@ servers = search(:node, "roles:logging\\-server#{env_filter}")
 if servers.nil?
   servers = []
 else
-  servers = servers.map { |x| Chef::Recipe::Barclamp::Inventory.get_network_by_type(x, "admin").address }
+  servers = servers.map { |x| x.address.addr }
 end
 
 # Disable syslogd in favor of rsyslog on redhat.
