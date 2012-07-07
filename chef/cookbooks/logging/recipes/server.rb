@@ -49,6 +49,13 @@ directory "/var/log/nodes" do
   action :create
 end
 
+directory "/etc/rsyslog.d" do
+  owner "root"
+  group "root"
+  mode "0644"
+  action :create
+end
+
 template "/etc/rsyslog.d/10-crowbar-server.conf" do
   owner "root"
   group "root"
