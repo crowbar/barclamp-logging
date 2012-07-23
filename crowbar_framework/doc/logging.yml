@@ -13,4 +13,4 @@ crowbar+book-barclamps:
   logging+logging
                 
 crowbar+book-licenses:
-  loggin+logging-licenses
+  logging+logging-licenses
