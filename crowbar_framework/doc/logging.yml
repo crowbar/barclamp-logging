@@ -1,23 +1,16 @@
-root:
-  # theses are the default meta_data values
-  topic_meta_data:  
-    author:     Multiple Authors
-    license:    Apache 2
-    copyright:  2012 by Dell, Inc
-    date:       June 1, 2012
-    order:      alpha
-    source:     logging
-    url:        '/utils'
-    format:     markdown
+author:     Multiple Authors
+license:    Apache 2
+copyright:  2012 by Dell, Inc
+date:       June 1, 2012
+format:     markdown
     
-  book-userguide:
-    ui-utilities:
-      utils-export-logging:
-        topic_meta_data:
-          url:    '/utils/list'
+crowbar+book-userguide:
+  crowbar+ui-utilities:
+    logging+utils-export-logging:
+      url:    '/utils/list'
 
-  book-barclamps:
-    logging
+crowbar+book-barclamps:
+  logging+logging
                 
-  book-licenses:
-    logging-licenses
+crowbar+book-licenses:
+  loggin+logging-licenses
