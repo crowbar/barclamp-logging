@@ -10,7 +10,8 @@ crowbar+book-userguide:
       url:    '/utils/list'
 
 crowbar+book-barclamps:
-  logging+logging
-                
+  logging+barclamp-info
+    
 crowbar+book-licenses:
-  logging+logging-licenses
+  crowbar+licenses-crowbar-meta:
+    logging+licenses
