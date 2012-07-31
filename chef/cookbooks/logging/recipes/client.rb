@@ -13,7 +13,9 @@
 # limitations under the License.
 #
 
-package "rsyslog"
+package "rsyslog" do
+  action :upgrade
+end
 
 env_filter = " AND environment:#{node[:logging][:config][:environment]}"
 servers = search(:node, "roles:logging\\-server#{env_filter}")

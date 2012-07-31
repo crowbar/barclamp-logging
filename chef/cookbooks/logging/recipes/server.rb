@@ -14,8 +14,9 @@
 #
 
 
-package "rsyslog"
-
+package "rsyslog" do
+  action :upgrade
+end
 
 external_servers = node[:logging][:external_servers]
 
