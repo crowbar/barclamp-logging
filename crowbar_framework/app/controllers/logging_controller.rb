@@ -14,9 +14,13 @@
 # 
 
 class LoggingController < BarclampController
-  def initialize
+  before_filter :set_service_object
+ 
+  def set_service_object
     @service_object = LoggingService.new logger
   end
+
+  private :set_service_object
   
   def export
     ctime=Time.now.strftime("%Y%m%d-%H%M%S")
