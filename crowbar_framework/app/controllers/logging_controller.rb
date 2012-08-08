@@ -14,14 +14,6 @@
 # 
 
 class LoggingController < BarclampController
-  before_filter :set_service_object
- 
-  def set_service_object
-    @service_object = LoggingService.new logger
-    @service_object.bc_name = @bc_name
-  end
-
-  private :set_service_object
   
   def export
     ctime=Time.now.strftime("%Y%m%d-%H%M%S")
@@ -32,7 +24,6 @@ class LoggingController < BarclampController
     Process.detach(pid) # reap child process automatically; don't leave running    
     redirect_to "/utils?waiting=true&file=#{@file.gsub(/\./,'-DOT-')}"
   end
-  
 
 end
 
