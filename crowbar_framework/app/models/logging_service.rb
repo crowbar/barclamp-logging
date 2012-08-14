@@ -1,4 +1,4 @@
-# Copyright 2011, Dell 
+# Copyright 2012, Dell 
 # 
 # Licensed under the Apache License, Version 2.0 (the "License"); 
 # you may not use this file except in compliance with the License. 
@@ -15,18 +15,6 @@
 
 class LoggingService < ServiceObject
 
-  def initialize(thelogger)
-    @bc_name = "logging"
-    @logger = thelogger
-  end
-
-  def create_proposal
-    @logger.debug("Logging create_proposal: entering")
-    base = super
-    @logger.debug("Logging create_proposal: exiting")
-    base
-  end
-
   def transition(inst, name, state)
     @logger.debug("Logging transition: entering: #{name} for #{state}")
 
@@ -35,29 +23,31 @@ class LoggingService < ServiceObject
     #
     if state == "discovered"
       @logger.debug("Logging transition: discovered state for #{name} for #{state}")
-      db = ProposalObject.find_proposal "logging", inst
-      role = RoleObject.find_role_by_name "logging-config-#{inst}"
 
-      if role.override_attributes["logging"]["elements"]["logging-server"].nil? or
-         role.override_attributes["logging"]["elements"]["logging-server"].empty?
+      prop = @barclamp.get_proposal(inst)
+      return [400, "Logging Proposal is not active"] unless prop.active?
+
+      nodes = prop.active_config.get_nodes_by_role("logging-server")
+      if nodes.empty?
         @logger.debug("Logging transition: make sure that logging-server role is on first: #{name} for #{state}")
-        result = add_role_to_instance_and_node("logging", inst, name, db, role, "logging-server")
+        result = add_role_to_instance_and_node(name, inst, "logging-server")
+        nodes = [ Node.find_by_name(name) ]
       else
         node = NodeObject.find_node_by_name name
-        unless node.role? "logging-server"
+        unless nodes.include? node
           @logger.debug("Logging transition: make sure that logging-client role is on all nodes but first: #{name} for #{state}")
-          result = add_role_to_instance_and_node("logging", inst, name, db, role, "logging-client")
+          result = add_role_to_instance_and_node(name, inst, "logging-client")
         end
       end
 
       @logger.debug("Logging transition: leaving from discovered state for #{name} for #{state}")
-      a = [200, NodeObject.find_node_by_name(name).to_hash] if result
+      a = [200, ""] if result
       a = [400, "Failed to add logging role to node"] unless result
       return a
     end
 
     @logger.debug("Logging transition: leaving for #{name} for #{state}")
-    [200, NodeObject.find_node_by_name(name).to_hash]
+    [200, ""]
   end
 
 end
