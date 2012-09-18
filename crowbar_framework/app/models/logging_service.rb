@@ -33,7 +33,7 @@ class LoggingService < ServiceObject
         result = add_role_to_instance_and_node(name, inst, "logging-server")
         nodes = [ Node.find_by_name(name) ]
       else
-        node = NodeObject.find_node_by_name name
+        node = Node.find_by_name name
         unless nodes.include? node
           @logger.debug("Logging transition: make sure that logging-client role is on all nodes but first: #{name} for #{state}")
           result = add_role_to_instance_and_node(name, inst, "logging-client")
