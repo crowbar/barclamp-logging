@@ -14,8 +14,7 @@
 #
 en:
   export:
-    logs: Log Export
-    chef: Chef Export 
+    logging_export: Log Export
     
   barclamp:
     logging: 
