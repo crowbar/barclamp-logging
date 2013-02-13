@@ -12,13 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-if Barclamp.table_exists?
-  bc = Barclamp.find_by_name("logging")
-  raise "Logging barclamp data is not installed in database (barclamps)" unless bc
-  BarclampLogging::API_VERSION=(bc && bc.api_version || "v1")
-  BarclampLogging::API_VERSION_ACCEPTS=(bc && bc.api_version_accepts || "v1")
-else
-  # migrations not run, yet...
-  BarclampLogging::API_VERSION="v1"
-  BarclampLogging::API_VERSION_ACCEPTS="v1"
-end
+bc = Barclamp.table_exists? ? Barclamp.find_by_name("logging") : nil
+BarclampLogging::API_VERSION=(bc && bc.api_version || "v1")
+BarclampLogging::API_VERSION_ACCEPTS=(bc && bc.api_version_accepts || "v1")
