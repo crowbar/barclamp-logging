@@ -7,11 +7,11 @@ require "barclamp_logging/version"
 Gem::Specification.new do |s|
   s.name        = "barclamp_logging"
   s.version     = BarclampLogging::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of BarclampLogging."
-  s.description = "TODO: Description of BarclampLogging."
+  s.authors     = ["Dell Crowbar Team"]
+  s.email       = ["crowbar@dell.com"]
+  s.homepage    = ""
+  s.summary     = " Summary of BarclampLogging."
+  s.description = " Description of BarclampLogging."
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]

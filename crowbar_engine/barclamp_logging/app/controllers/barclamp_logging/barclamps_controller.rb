@@ -14,7 +14,7 @@
 # 
 
 class BarclampLogging::BarclampsController < BarclampController
-  
+
   def export
     ctime=Time.now.strftime("%Y%m%d-%H%M%S")
     @file = "crowbar-logs-#{ctime}.tar.bz2"
