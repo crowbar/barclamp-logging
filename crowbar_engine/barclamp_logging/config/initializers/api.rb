@@ -12,22 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-BarclampLogging::Engine.routes.draw do
-
-  scope "#{BarclampLogging::API_VERSION}" do
-    resources :barclamps do
-      collection do
-        get :export
-        get :catalog
-      end
-      member do
-      
-      end
-    end
-  end
-
-# configure routes for these Logging barclamps controller actions...
-# (other controllers may also need routing configuration!)
-#export
-
-end
+bc = Barclamp.table_exists? ? Barclamp.find_by_name("logging") : nil
+BarclampLogging::API_VERSION=(bc && bc.api_version || "v1")
+BarclampLogging::API_VERSION_ACCEPTS=(bc && bc.api_version_accepts || "v1")
