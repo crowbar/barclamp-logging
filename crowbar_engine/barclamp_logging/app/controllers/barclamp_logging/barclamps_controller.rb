@@ -13,7 +13,7 @@
 # limitations under the License. 
 # 
 
-class BarclampLogging::BarclampsController < BarclampController
+class BarclampLogging::BarclampsController < BarclampsController
 
   def export
     ctime=Time.now.strftime("%Y%m%d-%H%M%S")
