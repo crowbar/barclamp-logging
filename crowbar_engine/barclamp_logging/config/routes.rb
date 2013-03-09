@@ -14,20 +14,22 @@
 
 BarclampLogging::Engine.routes.draw do
 
-  scope "#{BarclampLogging::API_VERSION}" do
-    resources :barclamps do
-      collection do
-        get :export
-        get :catalog
-      end
-      member do
-      
+  # API routes
+  scope :defaults => {:format=> 'json'} do
+    constraints( :api_version => /v[1-9]/ ) do
+      scope ':api_version' do
+
+        resources :barclamps do
+          collection do
+            get :catalog
+            get :export
+          end
+          member do
+
+          end
+        end
       end
     end
   end
-
-# configure routes for these Logging barclamps controller actions...
-# (other controllers may also need routing configuration!)
-#export
 
 end
