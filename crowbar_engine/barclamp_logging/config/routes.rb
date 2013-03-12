@@ -22,13 +22,17 @@ BarclampLogging::Engine.routes.draw do
         resources :barclamps do
           collection do
             get :catalog
-            get :export
           end
           member do
 
           end
         end
       end
+    end
+  end
+  resources :barclamps do
+    collection do
+      get :export
     end
   end
 
