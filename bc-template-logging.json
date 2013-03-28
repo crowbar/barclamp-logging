@@ -6,6 +6,10 @@
       "external_servers": [ ]
     }
   },
+  "roles": {
+      "logging-server": { "admin_implicit": true, "jig": "chef" },
+      "logging-client": { "implicit": true, "jig": "chef" }
+  },
   "deployment": {
     "logging": {
       "crowbar-revision": 0,
