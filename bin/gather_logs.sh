@@ -43,7 +43,7 @@ sort_by_last() {
     cd "$logdir"
     sshopts=(-q -o 'StrictHostKeyChecking no' 
 	-o 'UserKnownHostsFile /dev/null')
-    logs=(/var/log /etc /opt/dell/crowbar_framework/log /install-logs)
+    logs=(/var/log /etc /opt/dell/crowbar_framework/log)
     logs+=(/var/chef/cache /var/cache/chef /opt/dell/crowbar_framework/db)
     curlargs=(-o /dev/null -D - --connect-timeout 30 --max-time 120)
     [[ $CROWBAR_KEY ]] && curlargs+=(--digest -u "$CROWBAR_KEY")
