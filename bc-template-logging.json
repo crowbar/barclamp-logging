@@ -1,6 +1,6 @@
 {
   "id": "bc-template-logging",
-  "description": "centralized logging system based on syslog",
+  "description": "Centralized logging system based on syslog",
   "attributes": {
     "logging": {
       "external_servers": [ ]
