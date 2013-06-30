@@ -14,7 +14,7 @@
 #
 class BarclampImportLogging < ActiveRecord::Migration
   def up
-    Barclamp.import_1x 'logging'
+    Barclamp.import 'logging'
   end
 
   def down
