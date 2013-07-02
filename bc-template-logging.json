@@ -1,5 +1,35 @@
 {
-  "environment": "logging-base-config",
-  "mode": "full"
+  "id": "bc-template-logging",
+  "description": "Centralized logging system based on syslog",
+  "attributes": {
+    "logging": {
+      "external_servers": [ ]
+    }
+  },
+  "roles": {
+      "logging-server": { "admin_implicit": true, "jig": "chef" },
+      "logging-client": { "implicit": true, "jig": "chef" }
+  },
+  "deployment": {
+    "logging": {
+      "crowbar-revision": 0,
+      "element_states": {
+        "logging-server": [ "readying", "ready", "applying" ],
+        "logging-client": [ "readying", "ready", "applying" ]
+      },
+      "elements": {},
+      "element_order": [
+        [ "logging-server", "logging-client" ]
+      ],
+      "config": {
+        "environment": "logging-base-config",
+        "mode": "full",
+        "transitions": true,
+        "transition_list": [
+          "discovered"
+        ]
+      }
+    }
+  }
 }
 
