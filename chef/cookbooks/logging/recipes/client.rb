@@ -13,6 +13,8 @@
 # limitations under the License.
 #
 
+return if node[:platform] == "windows"
+
 package "rsyslog"
 
 env_filter = " AND environment:#{node[:logging][:config][:environment]}"
