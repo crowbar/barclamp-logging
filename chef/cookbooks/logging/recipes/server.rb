@@ -17,7 +17,11 @@
 package "rsyslog"
 
 
-external_servers = node[:logging][:external_servers]
+external_servers = node[:crowbar][:logging][:external_servers]
+unless node[:crowbar][:logging][:servers] &&
+    node[:crowbar][:logging][:servers].include?(node.address.to_s)
+  node.set[:crowbar][:logging][:servers] = [ node.address.to_s ]
+end
 
 # Disable syslogd in favor of rsyslog on suse (presumably desirable
 # for redhat too, but I'm not in a position to test/verify ATM - see

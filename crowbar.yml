@@ -27,6 +27,23 @@ barclamp:
   member:
     - crowbar
 
+roles:
+  - name: logging-server
+    jig: chef
+    flags:
+      - bootstrap
+    requires:
+      - dns-client
+      - network-admin
+  - name: logging-client
+    jig: chef
+    flags:
+      - discovery
+    requires:
+      - logging-server
+      - network-admin
+
+
 crowbar:
   layout: 2.0
   order: 40

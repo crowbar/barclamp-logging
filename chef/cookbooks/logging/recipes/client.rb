@@ -15,14 +15,9 @@
 
 package "rsyslog"
 
-env_filter = " AND environment:#{node[:logging][:config][:environment]}"
-servers = search(:node, "roles:logging\\-server#{env_filter}")
-
-if servers.nil?
-  servers = []
-else
-  servers = servers.map { |x| x.address.addr }
-end
+# Don't configure this node as a logging client if it is already a server.
+return if node["roles"].include?("ntp-server")
+servers = node[:crowbar][:logging][:servers]
 
 # Disable syslogd in favor of rsyslog on redhat.
 case node[:platform]
