@@ -1,5 +1,8 @@
 {
-  "environment": "logging-base-config",
-  "mode": "full"
+    "crowbar": {
+        "logging": {
+            "external_servers": []
+        }
+    }
 }
 
