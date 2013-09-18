@@ -19,8 +19,8 @@ package "rsyslog"
 
 external_servers = node[:crowbar][:logging][:external_servers]
 unless node[:crowbar][:logging][:servers] &&
-    node[:crowbar][:logging][:servers].include?(node.address.to_s)
-  node.set[:crowbar][:logging][:servers] = [ node.address.to_s ]
+    node[:crowbar][:logging][:servers].include?(node.address("admin",IP::IP6).addr)
+  node.set[:crowbar][:logging][:servers] = [ node.address("admin",IP::IP6).addr ]
 end
 
 # Disable syslogd in favor of rsyslog on suse (presumably desirable
