@@ -40,6 +40,7 @@ roles:
     flags:
       - discovery
     requires:
+      - dns-client
       - logging-server
       - network-admin
 
