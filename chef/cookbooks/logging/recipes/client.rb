@@ -13,10 +13,10 @@
 # limitations under the License.
 #
 
-package "rsyslog"
+package "rsyslog" unless Kernel.system("which rsyslogd")
 
 # Don't configure this node as a logging client if it is already a server.
-return if node["roles"].include?("ntp-server")
+return if node["roles"].include?("logging-server")
 servers = node[:crowbar][:logging][:servers]
 
 # Disable syslogd in favor of rsyslog on redhat.
@@ -52,4 +52,3 @@ template "/etc/rsyslog.d/10-crowbar-client.conf" do
   variables(:servers => servers)
   notifies :restart, "service[rsyslog]"
 end
-

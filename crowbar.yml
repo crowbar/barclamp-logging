@@ -32,6 +32,7 @@ roles:
     jig: chef
     flags:
       - bootstrap
+      - server
     requires:
       - dns-client
       - network-admin
@@ -40,6 +41,7 @@ roles:
     flags:
       - discovery
     requires:
+      - dns-client
       - logging-server
       - network-admin
 
