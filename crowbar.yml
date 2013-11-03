@@ -31,7 +31,6 @@ roles:
   - name: logging-server
     jig: chef
     flags:
-      - bootstrap
       - server
     requires:
       - dns-client
@@ -39,7 +38,7 @@ roles:
   - name: logging-client
     jig: chef
     flags:
-      - discovery
+      - implicit
     requires:
       - dns-client
       - logging-server
