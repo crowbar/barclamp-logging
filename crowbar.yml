@@ -29,14 +29,14 @@ barclamp:
 
 roles:
   - name: logging-server
-    jig: chef
+    jig: chef-solo
     flags:
       - server
     requires:
       - dns-client
       - network-admin
   - name: logging-client
-    jig: chef
+    jig: chef-solo
     flags:
       - implicit
     requires:
