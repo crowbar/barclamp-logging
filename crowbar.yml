@@ -35,6 +35,10 @@ roles:
     requires:
       - dns-client
       - network-admin
+    attribs:
+      - name: logging_server
+        description: "The IP addresses of the server that should get all logging output."
+        map: 'crowbar/logging/servers'
   - name: logging-client
     jig: chef-solo
     flags:
@@ -43,6 +47,8 @@ roles:
       - dns-client
       - logging-server
       - network-admin
+    wants-attribs:
+      - logging_server
 
 
 crowbar:
