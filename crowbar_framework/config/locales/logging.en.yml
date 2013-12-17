@@ -4,6 +4,5 @@ en:
   barclamp:
     logging:
       edit_attributes:
-        attributes: Attributes
-      edit_deployment:
-        deployment: Deployment
+        external_servers: External servers
+        ip_list_hint: A comma-separated list of IP Addresses
