@@ -1,0 +1,9 @@
+en:
+  nav:
+    logging_export: Log Export
+  barclamp:
+    logging:
+      edit_attributes:
+        attributes: Attributes
+      edit_deployment:
+        deployment: Deployment
