@@ -29,17 +29,6 @@ crowbar:
   chef_order: 40
   proposal_schema_version: 2
 
-locale_additions:
-  en:
-    nav:
-      logging_export: Log Export
-    barclamp:
-      logging: 
-        edit_attributes: 
-          attributes: Attributes
-        edit_deployment: 
-          deployment: Deployment
-
 rpms:
   pkgs:
     - rsyslog
