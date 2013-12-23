@@ -1,0 +1,10 @@
+- register_javascripts "barclamps/glance/form"
+
+= attributes_for @proposal do
+  .panel-sub
+    = header @dep_raw, true
+
+  .panel-body
+    = array_string_field :external_servers
+    %span.help-block
+      = t('.ip_list_hint')
