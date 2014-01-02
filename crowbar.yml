@@ -48,7 +48,8 @@ roles:
       - logging-server
       - network-admin
     wants-attribs:
-      - logging_server
+      - name: logging_server
+        at: 'crowbar/logging/servers'
 
 
 crowbar:
