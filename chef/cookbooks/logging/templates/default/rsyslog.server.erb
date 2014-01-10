@@ -8,8 +8,14 @@ $ModLoad imudp
 $UDPServerRun 514
 
 # split remote logs by hostname
+# stop processing the line after it has been logged
 $template DynaFile,"/var/log/nodes/%HOSTNAME%.log"
-*.* -?DynaFile
+if $fromhost-ip != '127.0.0.1' then -?DynaFile
+<% if @rsyslog_version < "7" %>
+& ~
+<% else %>
+& stop
+<% end %>
 
 <% @external_servers.each do |external_server| -%>
 *.* @@<%= external_server %>

@@ -18,6 +18,7 @@ package "rsyslog"
 
 
 external_servers = node[:logging][:external_servers]
+rsyslog_version = `rsyslogd -v | head -1 | cut -d " " -f 2`
 
 # Disable syslogd in favor of rsyslog on suse (presumably desirable
 # for redhat too, but I'm not in a position to test/verify ATM - see
@@ -54,7 +55,7 @@ template "/etc/rsyslog.d/10-crowbar-server.conf" do
   group "root"
   mode 0644
   source "rsyslog.server.erb"
-  variables(:external_servers => external_servers)
+  variables(:external_servers => external_servers, :rsyslog_version => rsyslog_version)
   notifies :restart, "service[rsyslog]"
 end
 
