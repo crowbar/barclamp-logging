@@ -20,6 +20,24 @@ class LoggingService < ServiceObject
     @bc_name = "logging"
   end
 
+  class << self
+    def role_constraints
+      @role_constraints ||= begin
+        {
+          "logging-server" => {
+            "unique" => true,
+            "count" => 1,
+            "admin" => true
+          },
+          "logging-client" => {
+            "unique" => true,
+            "count" => -1
+          }
+        }
+      end
+    end
+  end
+
   def create_proposal
     @logger.debug("Logging create_proposal: entering")
     base = super

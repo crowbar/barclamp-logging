@@ -18,17 +18,4 @@
 #
 
 module LoggingBarclampHelper
-  def logging_role_contraints
-    {
-      "logging-server" => {
-        "unique" => true,
-        "count" => 1,
-        "admin" => true
-      },
-      "logging-client" => {
-        "unique" => true,
-        "count" => -1
-      }
-    }
-  end
 end
