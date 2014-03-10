@@ -22,19 +22,17 @@ class LoggingService < ServiceObject
 
   class << self
     def role_constraints
-      @role_constraints ||= begin
-        {
-          "logging-server" => {
-            "unique" => true,
-            "count" => 1,
-            "admin" => true
-          },
-          "logging-client" => {
-            "unique" => true,
-            "count" => -1
-          }
+      {
+        "logging-server" => {
+          "unique" => true,
+          "count" => 1,
+          "admin" => true
+        },
+        "logging-client" => {
+          "unique" => true,
+          "count" => -1
         }
-      end
+      }
     end
   end
 
