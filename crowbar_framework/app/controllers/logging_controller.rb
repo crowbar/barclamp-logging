@@ -14,10 +14,6 @@
 # 
 
 class LoggingController < BarclampController
-  def initialize
-    @service_object = LoggingService.new logger
-  end
-  
   def export
     ctime=Time.now.strftime("%Y%m%d-%H%M%S")
     @file = "crowbar-logs-#{ctime}.tar.bz2"
@@ -27,7 +23,10 @@ class LoggingController < BarclampController
     Process.detach(pid) # reap child process automatically; don't leave running    
     redirect_to "/utils?waiting=true&file=#{@file.gsub(/\./,'-DOT-')}"
   end
-  
 
+  protected
+
+  def initialize_service
+    @service_object = LoggingService.new logger
+  end
 end
-
