@@ -27,7 +27,7 @@ crowbar:
   order: 40
   run_order: 40
   chef_order: 40
-  proposal_schema_version: 2
+  proposal_schema_version: 3
 
 rpms:
   pkgs:
