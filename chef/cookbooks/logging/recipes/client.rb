@@ -51,7 +51,14 @@ service "rsyslog" do
   action [ :enable, :start ]
 end
 
-template "/etc/rsyslog.d/10-crowbar-client.conf" do
+if File.exists? "/etc/rsyslog.d/10-crowbar-client.conf"
+  # Upgrade path: we used to create that file
+  file "/etc/rsyslog.d/10-crowbar-client.conf" do
+    action :delete
+  end
+end
+
+template "/etc/rsyslog.d/99-crowbar-client.conf" do
   owner "root"
   group "root"
   mode 0644
