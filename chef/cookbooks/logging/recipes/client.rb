@@ -1,4 +1,5 @@
 # Copyright 2011, Dell
+# Copyright 2014, SUSE Linux GmbH.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,18 +29,18 @@ end
 
 # Disable syslogd in favor of rsyslog on redhat.
 case node[:platform]
-  when "redhat","centos"
-      service "syslog" do
-        action [ :stop, :disable]
-      end
-  when "suse"
-      ruby_block "edit sysconfig syslog" do
-          block do
-            rc = Chef::Util::FileEdit.new("/etc/sysconfig/syslog")
-            rc.search_file_replace_line(/^SYSLOG_DAEMON=/, "SYSLOG_DAEMON=rsyslogd")
-            rc.write_file
-          end
-      end
+when "redhat","centos"
+  service "syslog" do
+    action [ :stop, :disable]
+  end
+when "suse"
+  ruby_block "edit sysconfig syslog" do
+    block do
+      rc = Chef::Util::FileEdit.new("/etc/sysconfig/syslog")
+      rc.search_file_replace_line(/^SYSLOG_DAEMON=/, "SYSLOG_DAEMON=rsyslogd")
+      rc.write_file
+    end
+  end
 end
 
 service "rsyslog" do
