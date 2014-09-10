@@ -34,15 +34,14 @@ when "redhat","centos"
     action [ :stop, :disable]
   end
 when "suse"
-  # SLE12 already defaults to rsyslog
-  if node[:platform_version].to_f < 12.0
-    ruby_block "edit sysconfig syslog" do
-      block do
-        rc = Chef::Util::FileEdit.new("/etc/sysconfig/syslog")
-        rc.search_file_replace_line(/^SYSLOG_DAEMON=/, "SYSLOG_DAEMON=rsyslogd")
-        rc.write_file
-      end
+  ruby_block "edit sysconfig syslog" do
+    block do
+      rc = Chef::Util::FileEdit.new("/etc/sysconfig/syslog")
+      rc.search_file_replace_line(/^SYSLOG_DAEMON=/, "SYSLOG_DAEMON=rsyslogd")
+      rc.write_file
     end
+    # SLE12 already defaults to rsyslog
+    only_if { node[:platform_version].to_f < 12.0 }
   end
 end
 
