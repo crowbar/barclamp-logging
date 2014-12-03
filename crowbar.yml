@@ -16,11 +16,13 @@
 #
 
 barclamp:
-  name: logging
-  display: Logging
+  name: 'logging'
+  display: 'Logging'
+  description: 'Logging Management'
   version: 0
+  user_managed: true
   member:
-    - crowbar
+    - 'crowbar'
 
 crowbar:
   layout: 1
@@ -28,11 +30,3 @@ crowbar:
   run_order: 40
   chef_order: 40
   proposal_schema_version: 3
-
-rpms:
-  pkgs:
-    - rsyslog
-
-#debs:
-#  pkgs:
-#    - rsyslog
