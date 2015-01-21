@@ -28,7 +28,10 @@ class LoggingService < ServiceObject
         "logging-server" => {
           "unique" => true,
           "count" => 1,
-          "admin" => true
+          "admin" => true,
+          "exclude_platform" => {
+            "suse" => "12.0"
+          }
         },
         "logging-client" => {
           "unique" => true,
