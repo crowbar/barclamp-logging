@@ -13,35 +13,10 @@
 # limitations under the License.
 #
 
-
-package "rsyslog"
-
+include_recipe "logging::common"
 
 external_servers = node[:logging][:external_servers]
 rsyslog_version = `rsyslogd -v | head -1 | cut -d " " -f 2`
-
-# Disable syslogd in favor of rsyslog on suse (presumably desirable
-# for redhat too, but I'm not in a position to test/verify ATM - see
-# client.rb for example)
-case node[:platform]
-  when "suse"
-    ruby_block "edit sysconfig syslog" do
-      block do
-        rc = Chef::Util::FileEdit.new("/etc/sysconfig/syslog")
-        rc.search_file_replace_line(/^SYSLOG_DAEMON=/, "SYSLOG_DAEMON=rsyslogd")
-        rc.write_file
-      end
-    end
-end
-
-service "rsyslog" do
-  provider Chef::Provider::Service::Upstart if node[:platform] == "ubuntu"
-  service_name "syslog" if node[:platform] == "suse"
-  supports :restart => true, :status => true, :reload => true
-  running true
-  enabled true
-  action [ :enable, :start ]
-end
 
 directory "/var/log/nodes" do
   owner "root"
