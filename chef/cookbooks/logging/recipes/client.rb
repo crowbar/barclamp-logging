@@ -27,13 +27,6 @@ else
   servers = servers.map { |x| Chef::Recipe::Barclamp::Inventory.get_network_by_type(x, "admin").address }
 end
 
-if File.exists? "/etc/rsyslog.d/10-crowbar-client.conf"
-  # Upgrade path: we used to create that file
-  file "/etc/rsyslog.d/10-crowbar-client.conf" do
-    action :delete
-  end
-end
-
 template "/etc/rsyslog.d/99-crowbar-client.conf" do
   owner "root"
   group "root"
