@@ -25,6 +25,14 @@ directory "/var/log/nodes" do
   action :create
 end
 
+# We can't be server and client, so remove client file if we were client before
+# No restart notification, as this file can only exist if the node moves from
+# client to server, and in that case, the notification for the template below
+# will create a notification.
+file "/etc/rsyslog.d/99-crowbar-client.conf" do
+  action :delete
+end
+
 template "/etc/rsyslog.d/10-crowbar-server.conf" do
   owner "root"
   group "root"
