@@ -42,18 +42,20 @@ template "/etc/rsyslog.d/10-crowbar-server.conf" do
   notifies :restart, "service[rsyslog]"
 end
 
-# dropping privileges seems to not allow network ports < 1024.
-# so, don't drop privileges.
-utils_line "# don't drop user privileges to keep network" do
-  action :add
-  regexp_exclude '\$PrivDropToUser\s+syslog\s*'
-  file "/etc/rsyslog.conf"
-  notifies :restart, "service[rsyslog]"
-end
+if node.platform == "ubuntu"
+  # dropping privileges seems to not allow network ports < 1024.
+  # so, don't drop privileges.
+  utils_line "# don't drop user privileges to keep network" do
+    action :add
+    regexp_exclude '\$PrivDropToUser\s+syslog\s*'
+    file "/etc/rsyslog.conf"
+    notifies :restart, "service[rsyslog]"
+  end
 
-utils_line "# don't drop group privileges to keep network" do
-  action :add
-  regexp_exclude '\$PrivDropToGroup\s+syslog\s*'
-  file "/etc/rsyslog.conf"
-  notifies :restart, "service[rsyslog]"
+  utils_line "# don't drop group privileges to keep network" do
+    action :add
+    regexp_exclude '\$PrivDropToGroup\s+syslog\s*'
+    file "/etc/rsyslog.conf"
+    notifies :restart, "service[rsyslog]"
+  end
 end
