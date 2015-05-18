@@ -30,13 +30,13 @@ class LoggingService < ServiceObject
           "count" => 1,
           "admin" => true,
           "exclude_platform" => {
-            "suse" => "12.0",
             "windows" => "/.*/"
           }
         },
         "logging-client" => {
           "unique" => true,
-          "count" => -1
+          "count" => -1,
+          "admin" => true
         }
       }
     end

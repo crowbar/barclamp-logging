@@ -13,41 +13,24 @@
 # limitations under the License.
 #
 
-
-package "rsyslog"
-
+include_recipe "logging::common"
 
 external_servers = node[:logging][:external_servers]
 rsyslog_version = `rsyslogd -v | head -1 | cut -d " " -f 2`
-
-# Disable syslogd in favor of rsyslog on suse (presumably desirable
-# for redhat too, but I'm not in a position to test/verify ATM - see
-# client.rb for example)
-case node[:platform]
-  when "suse"
-    ruby_block "edit sysconfig syslog" do
-      block do
-        rc = Chef::Util::FileEdit.new("/etc/sysconfig/syslog")
-        rc.search_file_replace_line(/^SYSLOG_DAEMON=/, "SYSLOG_DAEMON=rsyslogd")
-        rc.write_file
-      end
-    end
-end
-
-service "rsyslog" do
-  provider Chef::Provider::Service::Upstart if node[:platform] == "ubuntu"
-  service_name "syslog" if node[:platform] == "suse"
-  supports :restart => true, :status => true, :reload => true
-  running true
-  enabled true
-  action [ :enable, :start ]
-end
 
 directory "/var/log/nodes" do
   owner "root"
   group "root"
   mode "0755"
   action :create
+end
+
+# We can't be server and client, so remove client file if we were client before
+# No restart notification, as this file can only exist if the node moves from
+# client to server, and in that case, the notification for the template below
+# will create a notification.
+file "/etc/rsyslog.d/99-crowbar-client.conf" do
+  action :delete
 end
 
 template "/etc/rsyslog.d/10-crowbar-server.conf" do
@@ -59,18 +42,20 @@ template "/etc/rsyslog.d/10-crowbar-server.conf" do
   notifies :restart, "service[rsyslog]"
 end
 
-# dropping privileges seems to not allow network ports < 1024.
-# so, don't drop privileges.
-utils_line "# don't drop user privileges to keep network" do
-  action :add
-  regexp_exclude '\$PrivDropToUser\s+syslog\s*'
-  file "/etc/rsyslog.conf"
-  notifies :restart, "service[rsyslog]"
-end
+if node.platform == "ubuntu"
+  # dropping privileges seems to not allow network ports < 1024.
+  # so, don't drop privileges.
+  utils_line "# don't drop user privileges to keep network" do
+    action :add
+    regexp_exclude '\$PrivDropToUser\s+syslog\s*'
+    file "/etc/rsyslog.conf"
+    notifies :restart, "service[rsyslog]"
+  end
 
-utils_line "# don't drop group privileges to keep network" do
-  action :add
-  regexp_exclude '\$PrivDropToGroup\s+syslog\s*'
-  file "/etc/rsyslog.conf"
-  notifies :restart, "service[rsyslog]"
+  utils_line "# don't drop group privileges to keep network" do
+    action :add
+    regexp_exclude '\$PrivDropToGroup\s+syslog\s*'
+    file "/etc/rsyslog.conf"
+    notifies :restart, "service[rsyslog]"
+  end
 end
